@@ -58,11 +58,8 @@ class AddressBook(UserDict):
     def find(self,item):
         for i,_ in self.data.items():
             if str(i)==item:
-                return self.get(i)
+                return f"{i}: {self.get(i)}"
             
     def delete(self,item):
-        for i,_ in self.data.items():
-            if str(i)==item:
-                pass
+        self.data.pop(str(item))
 
-    
