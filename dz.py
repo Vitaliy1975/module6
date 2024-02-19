@@ -41,6 +41,7 @@ class Record():
                 self.phones.append(str(Phone.check_if_10(new)))
             except Exception as e:
                 print(e)
+            return f"{self.name.value}:{'; '.join(p for p in self.phones)}"
         
     def find_phone(self,phone):
         if phone in self.phones:
@@ -48,8 +49,9 @@ class Record():
         else:
             return "Not found"
     
-    def __str__(self):
-        return f"Contact name: {self.name.value}, phones: {'; '.join(p for p in self.phones)}"
+    # def __str__(self):
+        # return {self.name.value:("; ".join(p for p in self.phones))}
+        # return f"Contact name: {self.name.value}, phones: {'; '.join(p for p in self.phones)}"
 
 class AddressBook(UserDict):
     def add_record (self,item):
@@ -58,8 +60,21 @@ class AddressBook(UserDict):
     def find(self,item):
         for i,_ in self.data.items():
             if str(i)==item:
-                return f"{i}: {self.get(i)}"
+                return {i: self.get(i)}
             
     def delete(self,item):
         self.data.pop(str(item))
+
+a=Record("john")
+print(a)
+a.add_phone("1234567890")
+a.add_phone("1122334455")
+print(a)
+b=AddressBook()
+print(a,b)
+b.add_record(a)
+print(type(b))
+john=b.find("john")
+print(john,type(john))
+john.edit_phone("1234567890","0987654321")
 
